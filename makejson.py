@@ -5,6 +5,7 @@ import re
 import os
 
 statecodes = json.load(open('state2fips.json'))
+patch = json.load(open('patch.json'))
 zipmap = {}
 cityFolder = 'zipctys/extracted'
 
@@ -25,6 +26,11 @@ for _, _, paths in os.walk(cityFolder):
                     zipmap.setdefault(r['zip'], set()).add(statecodes[r['state']] + r['fips'])
                 else:
                     print 'Failed to parse: "{line}"'.format(line=l)
+
+# Add patch values to the zip map. Provides a way to add missing codes.
+print "Applying patch values"
+for zip, fips in patch.iteritems():
+    zipmap.setdefault(zip, set()).update(fips)
 
 # Convert sets to lists so they can be serialized.
 print ""
