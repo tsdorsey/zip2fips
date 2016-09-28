@@ -4,14 +4,14 @@ import json
 import re
 import os
 
-statecodes = json.load(open('state_fips.json'))
+statecodes = json.load(open('state2fips.json'))
 zipmap = {}
 cityFolder = 'zipctys/extracted'
 
 for _, _, paths in os.walk(cityFolder):
     # Filter out system/hidden files.
     paths = [path for path in paths if path[0] != '.']
-    
+
     print "Found {count} data files to process.".format(count=len(paths))
     for index, path in enumerate(paths):
         print "Processing {name} - {x} of {y}".format(name=path, x=(index+1), y=(len(paths)))
