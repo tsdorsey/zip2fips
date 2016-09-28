@@ -15,7 +15,7 @@ for _, _, paths in os.walk(cityFolder):
 
     print "Found {count} data files to process.".format(count=len(paths))
     for index, path in enumerate(paths):
-        print "Processing {name} - {x} of {y}".format(name=path, x=(index+1), y=(len(paths)))
+        print "Processing {x:>2} of {y} - {name}".format(name=path, x=(index+1), y=(len(paths)))
         with open(os.path.join(cityFolder, path), 'r') as zfile:
             zfile.readline() # skip first line
             for l in zfile:
