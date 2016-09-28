@@ -1,8 +1,10 @@
 #!/bin/bash
 
+rm -rf "zipctys/"
+
 curl --create-dirs "http://wonder.cdc.gov/wonder/sci_data/datasets/zipctyA.zip" -o "zipctys/zipctyA.zip" "http://wonder.cdc.gov/wonder/sci_data/datasets/zipctyB.zip" -o "zipctys/zipctyB.zip"
 
-unzip "zipctys/zipctyA.zip" -d zipctys
-unzip "zipctys/zipctyB.zip" -d zipctys
+unzip "zipctys/zipctyA.zip" -d zipctys/extracted
+unzip "zipctys/zipctyB.zip" -d zipctys/extracted
 
-(echo '1794315,s/  /GA'; echo 'w')|ed -s "zipctys/zipcty4"
+(echo '1794315,s/  /GA'; echo 'w')|ed -s "zipctys/extracted/zipcty4"
