@@ -37,5 +37,20 @@ print ""
 for key in zipmap.keys():
     zipmap[key] = sorted(zipmap[key])
 
+# Flatten the arrays (personal preference).
+outputText = json.dumps(zipmap, sort_keys=True, indent=2, separators=(', ', ': ')).split('\n')
+inArray = -1
+for index, line in enumerate(outputText):
+    if line[-1] == '[':
+        inArray = index
+
+    if inArray >= 0:
+        text = line.replace(' ', '')
+        outputText[inArray] = outputText[inArray] + text
+        outputText[index] = ''
+        if text == '],':
+            inArray = -1
+outputText = filter(lambda x: len(x), outputText)
+
 with open('zip2fips.json', 'w') as out:
-    out.write(json.dumps(zipmap))
+    out.write('\n'.join(outputText))
